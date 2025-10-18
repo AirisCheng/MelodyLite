@@ -1,0 +1,55 @@
+services:
+  mysql:
+    image: mysql:5.7
+    volumes:
+      - ./mysql/init:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456       # 确保密码一致
+      MYSQL_DATABASE: music
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p123456"]  # 添加密码
+      interval: 5s
+      timeout: 10s
+      retries: 5
+    ports:
+      - "3306:3306"
+    command: --character-set-server=utf8 --collation-server=utf8_unicode_ci # 设置默认字符集和排序规则
+
+  backend:
+    build:
+      context: ../
+      dockerfile: docker/music_server/Dockerfile
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/music?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&useSSL=false
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 123456  # 密码改为 123456，与 MySQL 一致
+    #    volumes:
+    #      - ../resources:/resources
+    depends_on:
+      mysql:
+        condition: service_healthy
+    ports:
+      - "8888:8888" # 将主机的 8888 端口映射到容器的 8888 端口
+
+
+
+  client:
+    build:
+      context: ../  # 指向项目根目录
+      dockerfile: docker/music_client/Dockerfile  # 修正路径
+    ports:
+      - "8081:8081" # 将宿主机的 8081 端口映射到容器的 8081 端口
+    depends_on:
+      - backend
+
+  manage:
+    build:
+      context: ../  # 指向项目根目录
+      dockerfile: docker/music_manage/Dockerfile  # 修正路径
+    ports:
+      - "8082:8080"
+    depends_on:
+      - backend
+
+volumes:
+  mysql_data:
