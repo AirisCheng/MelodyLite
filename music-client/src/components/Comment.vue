@@ -67,53 +67,34 @@ export default {
         this.getComment();
     },
     methods: {
-        //提交评论
-        postComment(){
-            if(this.loginIn){
-                let params = new URLSearchParams();
-                if(this.type == 0){
-                    params.append('songId',this.playId);
-                }else{
-                    params.append('songListId',this.playId);
-                }
-                params.append('userId',this.userId);
-                params.append('type',this.type);
-                params.append('content',this.textarea);
-                setComment(params)
-                    .then(res => {
-                        if(res.code == 1){
-                            this.notify('评论成功','success');
-                            this.textarea='';
-                            this.getComment();
-                        }else{
-                            this.notify('评论失败','error');
-                        }
-                    })
-                    .catch(err =>{
-                        this.notify('评论失败','error');
-                    })
-            }else{
-                this.rank = null;
-                 this.notify('请先登录','warning');
-            }
-        },
-        // //评论列表
-        // getComment(){
-        //     getAllComment(this.type,this.playId)
-        //         .then(res => {
-        //                 this.commentList = res;
-        //                 for(let item of res){
-        //                     this.getUsers(item.userId);
-        //                 }
-        //             })
-        //             .catch(err =>{
-        //                 this.notify('评论加载失败','error');
-        //             })
-        // },
+      // 提交评论
+      postComment() {
+        if (this.loginIn) {
+          let params = new URLSearchParams();
+          params.append('songListId', this.playId);
+          params.append('userId', this.userId);
+          params.append('content', this.textarea);
+
+          setComment(params)
+            .then(res => {
+              if (res.code == 1) {
+                this.notify(res.msg, 'success');
+                this.textarea = '';
+                this.getComment();
+              } else {
+                this.notify(res.msg, 'error');
+              }
+            })
+            .catch(err => {
+              this.notify('评论失败', 'error');
+            })
+        } else {
+          this.rank = null;
+          this.notify('请先登录', 'warning');
+        }
+      },
       //评论列表
       getComment(){
-        // 修改前：getAllComment(this.type, this.playId)
-        // 修改后：只传 playId 即可
         getAllComment(this.playId)
           .then(res => {
             this.commentList = res;

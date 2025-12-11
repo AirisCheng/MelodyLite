@@ -42,6 +42,13 @@ public class CommentController {
         String songListId = request.getParameter("songListId");   //歌单id
         String content = request.getParameter("content").trim();         //评论内容
 
+        //校验评论内容是否为空
+        if (content == null || content.trim().equals("")) {
+            jsonObject.put(Consts.CODE, 0);
+            jsonObject.put(Consts.MSG, "评论不能为空");
+            return jsonObject;
+        }
+
         //保存到评论的对象中
         Comment comment = new Comment();
         comment.setUserId(Integer.parseInt(userId));
