@@ -37,20 +37,21 @@ public class CommentController {
     public Object addComment(HttpServletRequest request){
         JSONObject jsonObject = new JSONObject();
         String userId = request.getParameter("userId");           //用户id
-        String type = request.getParameter("type");               //评论类型（0歌曲1歌单）
-        String songId = request.getParameter("songId");           //歌曲id
+//        String type = request.getParameter("type");               //评论类型
+//        String songId = request.getParameter("songId");           //歌曲id
         String songListId = request.getParameter("songListId");   //歌单id
         String content = request.getParameter("content").trim();         //评论内容
 
         //保存到评论的对象中
         Comment comment = new Comment();
         comment.setUserId(Integer.parseInt(userId));
-        comment.setType(new Byte(type));
-        if(new Byte(type) ==0){
-            comment.setSongId(Integer.parseInt(songId));
-        }else{
-            comment.setSongListId(Integer.parseInt(songListId));
-        }
+//        comment.setType(new Byte(type));
+//        if(new Byte(type) ==0){
+//            comment.setSongId(Integer.parseInt(songId));
+//        }else{
+//            comment.setSongListId(Integer.parseInt(songListId));
+//        }
+        comment.setSongListId(Integer.parseInt(songListId));
         comment.setContent(content);
         boolean flag = commentService.insert(comment);
         if(flag){   //保存成功
@@ -71,8 +72,8 @@ public class CommentController {
         JSONObject jsonObject = new JSONObject();
         String id = request.getParameter("id").trim();                   //主键
         String userId = request.getParameter("userId").trim();           //用户id
-        String type = request.getParameter("type").trim();               //评论类型（0歌曲1歌单）
-        String songId = request.getParameter("songId").trim();           //歌曲id
+//        String type = request.getParameter("type").trim();               //评论类型（0歌曲1歌单）
+//        String songId = request.getParameter("songId").trim();           //歌曲id
         String songListId = request.getParameter("songListId").trim();   //歌单id
         String content = request.getParameter("content").trim();         //评论内容
 
@@ -80,12 +81,12 @@ public class CommentController {
         Comment comment = new Comment();
         comment.setId(Integer.parseInt(id));
         comment.setUserId(Integer.parseInt(userId));
-        comment.setType(new Byte(type));
-        if(songId!=null&&songId.equals("")){
-            songId = null;
-        }else {
-            comment.setSongId(Integer.parseInt(songId));
-        }
+//        comment.setType(new Byte(type));
+//        if(songId!=null&&songId.equals("")){
+//            songId = null;
+//        }else {
+//            comment.setSongId(Integer.parseInt(songId));
+//        }
         if(songListId!=null&&songListId.equals("")){
             songListId = null;
         }else {
@@ -131,21 +132,21 @@ public class CommentController {
         return commentService.allComment();
     }
 
-    /**
-     * 查询某个歌曲下的所有评论
-     */
-    @RequestMapping(value = "/commentOfSongId",method = RequestMethod.GET)
-    public Object commentOfSongId(HttpServletRequest request){
-        String songId = request.getParameter("songId");          //歌曲id
-        return commentService.commentOfSongId(Integer.parseInt(songId));
-    }
+//    /**
+//     * 查询某个歌曲下的所有评论
+//     */
+//    @RequestMapping(value = "/commentOfSongId",method = RequestMethod.GET)
+//    public Object commentOfSongId(HttpServletRequest request){
+//        String songId = request.getParameter("songId");          //歌曲id
+//        return commentService.commentOfSongId(Integer.parseInt(songId));
+//    }
 
     /**
      * 查询某个歌单下的所有评论
      */
     @RequestMapping(value = "/commentOfSongListId",method = RequestMethod.GET)
     public Object commentOfSongListId(HttpServletRequest request){
-        String songListId = request.getParameter("songListId");          //歌曲id
+        String songListId = request.getParameter("songListId");          //歌单id
         return commentService.commentOfSongListId(Integer.parseInt(songListId));
     }
 

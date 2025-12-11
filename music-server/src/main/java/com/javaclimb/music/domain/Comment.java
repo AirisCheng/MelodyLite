@@ -12,10 +12,10 @@ public class Comment implements Serializable {
     private Integer id;
     /*用户id*/
     private Integer userId;
-    /*评论类型（0歌曲1歌单）*/
-    private Byte type;
-    /*歌曲id*/
-    private Integer songId;
+//    /*评论类型（0歌曲1歌单）*/
+//    private Byte type;
+//    /*歌曲id*/
+//    private Integer songId;
     /*歌单id*/
     private Integer songListId;
     /*评论内容*/
@@ -41,21 +41,21 @@ public class Comment implements Serializable {
         this.userId = userId;
     }
 
-    public Byte getType() {
-        return type;
-    }
+//    public Byte getType() {
+//        return type;
+//    }
 
-    public void setType(Byte type) {
-        this.type = type;
-    }
+//    public void setType(Byte type) {
+//        this.type = type;
+//    }
 
-    public Integer getSongId() {
-        return songId;
-    }
+//    public Integer getSongId() {
+//        return songId;
+//    }
 
-    public void setSongId(Integer songId) {
-        this.songId = songId;
-    }
+//    public void setSongId(Integer songId) {
+//        this.songId = songId;
+//    }
 
     public Integer getSongListId() {
         return songListId;

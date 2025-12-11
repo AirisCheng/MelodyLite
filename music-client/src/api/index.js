@@ -25,8 +25,8 @@ export const getSongListOfLikeTitle = (keywords) => get(`songList/likeTitle?titl
 //根据风格模糊查询歌单列表
 export const getSongListOfLikeStyle = (style) => get(`songList/likeStyle?style=${style}`);
 // 获取指定 ID 的歌单详情
-export const getSongListById = (id) => get(`/songList/detail?id=${id}`);
-
+// export const getSongListById = (id) => get(`/songList/detail?id=${id}`);
+export const getSongListById = (id) => get(`songList/selectByPrimaryKey?id=${id}`);
 //============歌单的歌曲相关============
 //根据歌单id查询歌曲列表
 export const listSongDetail = (songListId) => get(`listSong/detail?songListId=${songListId}`);
@@ -72,13 +72,14 @@ export const setComment =(params) => post(`/comment/add`,params);
 //点赞
 export const setLike =(params) => post(`/comment/like`,params);
 //返回当前歌单或歌曲的评论列表
-export const getAllComment = (type,id) => {
-    if(type == 0){              //歌曲
-        return get(`/comment/commentOfSongId?songId=${id}`);
-    }else{                      //歌单
-        return get(`/comment/commentOfSongListId?songListId=${id}`);
-    }
-}
+// export const getAllComment = (type,id) => {
+//     if(type == 0){              //歌曲
+//         return get(`/comment/commentOfSongId?songId=${id}`);
+//     }else{                      //歌单
+//         return get(`/comment/commentOfSongListId?songListId=${id}`);
+//     }
+// }
+export const getAllComment = (id) => get(`/comment/commentOfSongListId?songListId=${id}`);
 
 //===============收藏===================
 //新增收藏

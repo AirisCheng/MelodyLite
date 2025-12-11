@@ -64,15 +64,15 @@ public class CommentServiceImpl implements CommentService {
         return commentMapper.allComment();
     }
 
-    /**
-     * 查询某个歌曲下的所有评论
-     *
-     * @param songId
-     */
-    @Override
-    public List<Comment> commentOfSongId(Integer songId) {
-        return commentMapper.commentOfSongId(songId);
-    }
+//    /**
+//     * 查询某个歌曲下的所有评论
+//     *
+//     * @param songId
+//     */
+//    @Override
+//    public List<Comment> commentOfSongId(Integer songId) {
+//        return commentMapper.commentOfSongId(songId);
+//    }
 
     /**
      * 查询某个歌单下的所有评论

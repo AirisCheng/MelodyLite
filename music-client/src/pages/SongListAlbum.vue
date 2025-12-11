@@ -186,7 +186,7 @@
         <album-content :songList="listOfSongs">
           <template slot="title">歌单</template>
         </album-content>
-        <comment :playId="songListId" :type="1"></comment>
+        <comment :playId="songListId"></comment>
       </div>
     </div>
   </div>

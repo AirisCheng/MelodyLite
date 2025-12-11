@@ -1,3 +1,4 @@
+//CommmentMapper.java
 package com.javaclimb.music.dao;
 
 import com.javaclimb.music.domain.Comment;
@@ -35,10 +36,10 @@ public interface CommentMapper {
      */
     public List<Comment> allComment();
 
-    /**
-     * 查询某个歌曲下的所有评论
-     */
-    public List<Comment> commentOfSongId(Integer songId);
+//    /**
+//     * 查询某个歌曲下的所有评论
+//     */
+//    public List<Comment> commentOfSongId(Integer songId);
 
     /**
      * 查询某个歌单下的所有评论

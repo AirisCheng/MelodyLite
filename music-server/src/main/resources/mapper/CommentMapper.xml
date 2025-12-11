@@ -3,11 +3,10 @@
         "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.javaclimb.music.dao.CommentMapper">
+
     <resultMap id="BaseResultMap" type="com.javaclimb.music.domain.Comment" >
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="user_id" jdbcType="INTEGER" property="userId"/>
-        <result column="type" jdbcType="TINYINT" property="type"/>
-        <result column="song_id" jdbcType="INTEGER" property="songId"/>
         <result column="song_list_id" jdbcType="INTEGER" property="songListId"/>
         <result column="content" jdbcType="VARCHAR" property="content"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
@@ -15,7 +14,7 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,user_id,type,song_id,song_list_id,content,create_time,up
+        id,user_id,song_list_id,content,create_time,up
     </sql>
 
     <insert id="insert" parameterType="com.javaclimb.music.domain.Comment">
@@ -26,12 +25,6 @@
             </if>
             <if test="userId != null">
                 user_id,
-            </if>
-            <if test="type != null">
-                type,
-            </if>
-            <if test="songId != null">
-                song_id,
             </if>
             <if test="songListId != null">
                 song_list_id,
@@ -51,12 +44,6 @@
             <if test="userId != null">
                 #{userId},
             </if>
-            <if test="type != null">
-                #{type},
-            </if>
-            <if test="songId != null">
-                #{songId},
-            </if>
             <if test="songListId != null">
                 #{songListId},
             </if>
@@ -67,20 +54,14 @@
             <if test="up != null">
                 #{up},
             </if>
-        </trim>        
+        </trim>
     </insert>
-    
+
     <update id="update" parameterType="com.javaclimb.music.domain.Comment">
         update comment
         <set>
             <if test="userId != null">
                 user_id = #{userId},
-            </if>
-            <if test="type != null">
-                type = #{type},
-            </if>
-            <if test="songId != null">
-                song_id = #{songId},
             </if>
             <if test="songListId != null">
                 song_list_id = #{songListId},
@@ -111,13 +92,6 @@
         select
         <include refid="Base_Column_List"/>
         from comment
-    </select>
-
-    <select id="commentOfSongId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-        select
-        <include refid="Base_Column_List"/>
-        from comment
-        where song_id = #{songId}
     </select>
 
     <select id="commentOfSongListId" resultMap="BaseResultMap" parameterType="java.lang.Integer">

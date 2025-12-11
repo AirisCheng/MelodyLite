@@ -97,19 +97,34 @@ export default {
                  this.notify('请先登录','warning');
             }
         },
-        //评论列表
-        getComment(){
-            getAllComment(this.type,this.playId)
-                .then(res => {
-                        this.commentList = res;
-                        for(let item of res){
-                            this.getUsers(item.userId);
-                        }
-                    })
-                    .catch(err =>{
-                        this.notify('评论加载失败','error');
-                    })
-        },
+        // //评论列表
+        // getComment(){
+        //     getAllComment(this.type,this.playId)
+        //         .then(res => {
+        //                 this.commentList = res;
+        //                 for(let item of res){
+        //                     this.getUsers(item.userId);
+        //                 }
+        //             })
+        //             .catch(err =>{
+        //                 this.notify('评论加载失败','error');
+        //             })
+        // },
+      //评论列表
+      getComment(){
+        // 修改前：getAllComment(this.type, this.playId)
+        // 修改后：只传 playId 即可
+        getAllComment(this.playId)
+          .then(res => {
+            this.commentList = res;
+            for(let item of res){
+              this.getUsers(item.userId);
+            }
+          })
+          .catch(err =>{
+            this.notify('评论加载失败','error');
+          })
+      },
         //获取用户的头像和昵称
         getUsers(id){
             getUserOfId(id)
